@@ -1,24 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {CommonMeter} from "./CommonMeter";
+import {TwoBRMeter} from "./TwoBRMeter";
+import {OwnerMeter} from "./OwnerMeter";
+import {OneBRMeter} from "./OneBRMeter";
+
+const style = {
+  cardDisplay: {
+    display: 'flex'
+  }
+};
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h2>Bill Dashboard</h2>
+      <div style={ style.cardDisplay }>
+        <CommonMeter />
+        {/*<TwoBRMeter />*/}
+        {/*<OwnerMeter />*/}
+        {/*<OneBRMeter />*/}
+      </div>
     </div>
   );
 }

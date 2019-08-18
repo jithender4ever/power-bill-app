@@ -23,7 +23,7 @@ function App() {
       <div style={ style.cardDisplay }>
           <BillAmountContext.Provider value={ { commonBillAmount, setBillAmount: (amount) => setCommonBillAmount(amount) } }>
               <CommonMeter />
-              {/*<TwoBRMeter />*/}
+              <TwoBRMeter />
         {/*<OwnerMeter />*/}
         {/*<OneBRMeter />*/}
           </BillAmountContext.Provider>

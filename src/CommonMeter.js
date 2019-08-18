@@ -1,5 +1,5 @@
 import React from 'react';
-import {FormInput} from "./FormInput";
+import FormInput from "./FormInput";
 
 export function CommonMeter() {
     return (
@@ -14,7 +14,7 @@ export function CommonMeter() {
                     </div>
                 </div>
                 <h4>Bill Calculator</h4>
-                <FormInput />
+                <FormInput unitType={"Common"} />
                 <br/>
             </div>
         </div>

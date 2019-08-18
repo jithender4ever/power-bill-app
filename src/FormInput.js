@@ -1,26 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import BillAmountContext from "./BillAmountContext";
 
-const styles = {
-    form: {
-        display: 'flex',
-        flexDirection: 'column'
-    },
-    input: {
-        display: 'flex'
-    }
-}
+const unitConfig = {
+    "common": "Amount per consumer",
+    "2br": "Total amount to be paid"
+};
 
-export function FormInput() {
-    const [billAmount, setBillAmount] = useState(0);
-    const [consumersCount, setConsumersCount] = useState(0);
+export function FormInput({ unitType = '' }) {
+
+    const myContext = useContext(BillAmountContext);
+
+    // TODO: What happens when the state is not set to a default value.
+    const [bill, setBill] = useState(0);
+    const [consumers, setConsumers] = useState(0);
 
     const deriveAmount = () => {
-        if(isNaN(billAmount) || isNaN(consumersCount)) return 0;
+        if(isNaN(bill) || isNaN(consumers)) return 0;
 
-        const result = billAmount/consumersCount;
+        const result = bill/consumers;
 
-        return (isNaN(result) || result === Infinity) ? 0 : result;
+        if(isNaN(result) || result === Infinity) {
+            myContext.setBillAmount(0);
+            return 0;
+        }
+
+        myContext.setBillAmount(result);
+
+        return result;
     };
+
+    function handleBillChange(e) {
+        setBill(e.target.value);
+    }
 
     return (
         <div className="ui form">
@@ -32,27 +43,35 @@ export function FormInput() {
                         id="amount"
                         min={0}
                         step={0.01}
-                        value={billAmount}
-                        onChange={(e) => setBillAmount(e.target.value)} />
+                        value={bill}
+                        onChange={handleBillChange} />
                     <div className="ui basic label">.00</div>
                 </div>
             </div>
+            {
+                unitType.toLowerCase() === "common" &&
+                <div className="inline field">
+                    <label>No. of consumers: </label>
+                    <input
+                        type="number"
+                        id="count"
+                        min={0}
+                        step={1}
+                        value={consumers}
+                        onChange={(e) => setConsumers(e.target.value)}/>
+                </div>
+            }
             <div className="inline field">
-                <label>No. of consumers: </label>
-                <input
-                    type="number"
-                    id="count"
-                    min={0}
-                    step={1}
-                    value={consumersCount}
-                    onChange={(e) => setConsumersCount(e.target.value)} />
-            </div>
-            <div className="inline field">
-                <label>Amount per consumer: </label>
-                <input
-                    readOnly
-                    value={deriveAmount()} />
+                <label>{ unitConfig[unitType.toLowerCase()] }</label>
+                <div className="ui right labeled input">
+                    <input
+                        readOnly
+                        value={deriveAmount()} />
+                    <div className="ui basic label">.00</div>
+                </div>
             </div>
         </div>
     )
 }
+
+export default React.memo(FormInput);

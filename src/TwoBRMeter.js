@@ -1,4 +1,5 @@
 import React from 'react';
+import {FormInput} from "./FormInput";
 
 export function TwoBRMeter() {
     return (
@@ -15,11 +16,8 @@ export function TwoBRMeter() {
                 This meter is privately used by the tenants living in the 2 BR unit.
               </div>
           </div>
-          <div className="extra content">
-            <div className="ui button">
-              <div className="ui basic green button">Compute Bill</div>
-            </div>
-          </div>
+            <FormInput unitType={"2BR"}/>
+            <br />
         </div>
         </div>
     )

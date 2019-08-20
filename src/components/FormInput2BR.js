@@ -6,32 +6,18 @@ const unitConfig = {
     "2br": "Total amount to be paid"
 };
 
-export function FormInput({ unitType = '' }) {
+export function FormInput2BR({ unitType = '' }) {
 
     const myContext = useContext(BillAmountContext);
 
     // TODO: What happens when the state is not set to a default value.
     const [bill, setBill] = useState(0);
-    const [consumers, setConsumers] = useState(0);
 
     const deriveAmount = () => {
-        if(isNaN(bill) || isNaN(consumers)) return 0;
+        if(isNaN(bill) || isNaN(myContext.commonBillAmount)) return 0;
 
-        const result = Number(bill)/Number(consumers);
-
-        if(isNaN(result) || result === Infinity) {
-            myContext.setBillAmount(0);
-            return 0;
-        }
-
-        myContext.setBillAmount(result);
-
-        return result;
+        return bill + myContext.commonBillAmount;
     };
-
-    function handleBillChange(e) {
-        setBill(e.target.value);
-    }
 
     return (
         <div className="ui form">
@@ -44,23 +30,10 @@ export function FormInput({ unitType = '' }) {
                         min={0}
                         step={0.01}
                         value={bill}
-                        onChange={handleBillChange} />
+                        onChange={(e) => setBill(Number(e.target.value))} />
                     <div className="ui basic label">.00</div>
                 </div>
             </div>
-            {
-                unitType.toLowerCase() === "common" &&
-                <div className="inline field">
-                    <label>No. of consumers: </label>
-                    <input
-                        type="number"
-                        id="count"
-                        min={0}
-                        step={1}
-                        value={consumers}
-                        onChange={(e) => setConsumers(e.target.value)}/>
-                </div>
-            }
             <div className="inline field">
                 <label>{ unitConfig[unitType.toLowerCase()] }</label>
                 <div className="ui right labeled input">
@@ -74,4 +47,4 @@ export function FormInput({ unitType = '' }) {
     )
 }
 
-export default React.memo(FormInput);
+export default React.memo(FormInput2BR);

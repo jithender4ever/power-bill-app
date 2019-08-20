@@ -30,8 +30,31 @@ export function FormInput({ unitType = '' }) {
     };
 
     function handleBillChange(e) {
-        setBill(e.target.value);
+        setBill(Number(e.target.value));
     }
+
+    function handleConsumersChange(e) {
+        setConsumers(Number(e.target.value));
+    }
+
+    function handleOnBlurBill(e) {
+        if (e.target.value === '') setBill(0);
+    }
+
+    function handleOnFocusBill(e) {
+        const value = Number(e.target.value);
+        if (value === 0) setBill('');
+    }
+
+    function handleOnBlurConsumers(e) {
+        if (e.target.value === '') setConsumers(0);
+    }
+
+    function handleOnFocusConsumers(e) {
+        const value = Number(e.target.value);
+        if (value === 0) setConsumers('');
+    }
+
 
     return (
         <div className="ui form">
@@ -44,7 +67,10 @@ export function FormInput({ unitType = '' }) {
                         min={0}
                         step={0.01}
                         value={bill}
-                        onChange={handleBillChange} />
+                        onChange={handleBillChange}
+                        onBlur={handleOnBlurBill}
+                        onFocus={handleOnFocusBill}
+                    />
                     <div className="ui basic label">.00</div>
                 </div>
             </div>
@@ -58,7 +84,10 @@ export function FormInput({ unitType = '' }) {
                         min={0}
                         step={1}
                         value={consumers}
-                        onChange={(e) => setConsumers(Number(e.target.value))}/>
+                        onChange={handleConsumersChange}
+                        onBlur={handleOnBlurConsumers}
+                        onFocus={handleOnFocusConsumers}
+                    />
                 </div>
             }
             <div className="inline field">

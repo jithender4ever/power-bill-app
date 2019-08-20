@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import {CommonMeter} from "./components/CommonMeter";
 import {TwoBRMeter} from "./components/TwoBRMeter";
 import {OneBRMeter} from "./components/OneBRMeter";
 
 import BillAmountContext from './components/BillAmountContext';
-import FormInputContext from './components/FormInputContext';
 
 const style = {
     cardDisplay: {
@@ -25,7 +24,7 @@ function App() {
               <CommonMeter />
               <TwoBRMeter />
               <TwoBRMeter tenant />
-        {/*<OneBRMeter />*/}
+              <OneBRMeter />
           </BillAmountContext.Provider>
       </div>
     </div>
